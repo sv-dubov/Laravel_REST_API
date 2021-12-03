@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Subject;
+use App\Models\Section;
 use Illuminate\Http\Request;
 
-class SubjectController extends Controller
+class SectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
-        return response()->json($subjects);
+        $sections = Section::all();
+        return response()->json($sections);
     }
 
     /**
@@ -29,10 +29,9 @@ class SubjectController extends Controller
     {
         $this->validate($request, [
             'class_id' => 'required',
-            'subject_name' => 'required|max:255',
-            'subject_code' => 'required|max:255'
+            'section_name' => 'required|max:255'
         ]);
-        $subject = Subject::create($request->all());
+        $section = Section::create($request->all());
         return response('Data was created successfully');
     }
 
@@ -44,8 +43,8 @@ class SubjectController extends Controller
      */
     public function show($id)
     {
-        $subject = Subject::where('id', $id)->firstOrFail();
-        return response()->json($subject);
+        $section = Section::where('id', $id)->firstOrFail();
+        return response()->json($section);
     }
 
     /**
@@ -58,12 +57,10 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'class_id' => 'required',
-            'subject_name' => 'required|max:255',
-            'subject_code' => 'required|max:255'
+            'section_name' => 'required|max:255'
         ]);
-        $subject = Subject::where('id', $id)->firstOrFail();
-        $subject->update($request->all());
+        $section = Section::where('id', $id)->firstOrFail();
+        $section->update($request->all());
         return response('Data was updated successfully');
     }
 
@@ -75,7 +72,7 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        Subject::find($id)->delete();
+        Section::find($id)->delete();
         return response('Data was deleted successfully');
     }
 }
